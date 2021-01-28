@@ -1,0 +1,17 @@
+{
+  "name": "life",
+  "scripts": {
+    "start": "parcel serve public/*.html",
+    "build": "parcel build public/*.html"
+  },
+  "dependencies": {
+    "bulma": "^0.9.1",
+    "prop-types": "^15.7.2",
+    "react": "17.0.1",
+    "react-dom": "17.0.1"
+  },
+  "devDependencies": {
+    "parcel": "^1.12.4",
+    "sass": "^1.29.0"
+  }
+}
