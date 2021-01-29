@@ -23,50 +23,66 @@ class Game extends React.Component {
         this.height = props.height;
         this.width = props.width;
         this.state = {
+            started: false,
             board: Array.from(Array(this.height), () => new Array(this.width).fill(0))
         }
+        this.start = this.start.bind(this);
+        this.stop = this.stop.bind(this);
         this.update = this.update.bind(this);
         this.onClick = this.onClick.bind(this);
     }
 
 
+    start() {
+        this.setState({
+            started: true
+        })
+    }
+
+    stop() {
+        this.setState({
+            started: false
+        })
+    }
+
+    componentDidMount() {
+        setInterval(() => {
+            if (this.state.started)
+                this.update();
+        }, 500)
+    }
+
+
     update() {
-        let b = this.state.board;
-        let u = Array.from(Array(this.height), () => new Array(this.width).fill(0));
+        let board = this.state.board;
+        let updated = Array.from(Array(this.height), () => new Array(this.width).fill(0));
         for (let r = 0; r < this.height; r++) {
             for (let c = 0; c < this.width; c++) {
                 let sum = 0;
                 for (let i = Math.max(r - 1, 0); i < Math.min(r + 2, this.height); i++) {
                     for (let y = Math.max(c - 1, 0); y < Math.min(c + 2, this.width); y++) {
-                        //console.log("i:", i, "y:", y, b[i][y])
-                        if ((i !== r) || (y !== c)) sum += b[i][y]
+                        if ((i !== r) || (y !== c)) sum += board[i][y]
                     }
                 }
-                console.log(r, c, sum);
                 if (sum === 3)
-                    u[r][c] = 1;
+                    updated[r][c] = 1;
                 else if (sum === 2)
-                    u[r][c] = b[r][c];
+                    updated[r][c] = board[r][c];
                 else
-                    u[r][c] = 0;
+                    updated[r][c] = 0;
             }
         }
         this.setState({
-            board: u
+            board: updated
         })
     }
 
     onClick(row, column) {
-        console.log(row, column);
         let board = this.state.board;
         board[row][column] = (board[row][column] === 0) ? 1 : 0;
         this.setState({
             board: board
         })
-    }
-
-    componentDidMount() {
-        //setInterval(this.update, 1000);
     }
 
     render() {
@@ -85,7 +101,8 @@ class Game extends React.Component {
                 <div className="board">
                     {rows}
                 </div>
-                <button onClick={this.update}>Start</button>
+                {(this.state.started) ? <button onClick={this.stop}>Stop</button> :
+                    <button onClick={this.start}>Start</button>}
             </>
         )
     }
