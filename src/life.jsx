@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+function new_board(height, width) {
+    return Array.from(Array(height), () => new Array(width).fill(0))
+}
+
 class Cell extends React.Component {
     constructor(props) {
         super(props);
@@ -17,14 +21,102 @@ class Cell extends React.Component {
     }
 }
 
+class Board extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        const board = this.props.board;
+        let rows = [];
+        for (let r = 0; r < board.length; r++) {
+            let row = [];
+            for (let c = 0; c < board[0].length; c++) {
+                if (this.props.started)
+                    row.push(<Cell row={r} column={c}
+                                   key={(r << 16) + (c + 1)}
+                                   value={board[r][c]}/>);
+                else
+                    row.push(<Cell row={r} column={c}
+                                   key={(r << 16) + (c + 1)}
+                                   value={board[r][c]}
+                                   onClick={this.props.onClick}/>);
+            }
+            rows.push(<div className="row" key={r}>{row}</div>);
+        }
+
+        return (
+            <div className="board">
+                {rows}
+            </div>
+        )
+    }
+}
+
+class Control extends React.Component {
+    constructor(props) {
+        super(props);
+        this.height = this.props.height;
+        this.width = this.props.width;
+        this.resize = this.resize.bind(this);
+        this.setWidth = this.setWidth.bind(this);
+        this.setHeight = this.setHeight.bind(this);
+    }
+
+    resize() {
+        this.props.resize(this.height, this.width)
+    }
+
+    setWidth(e) {
+        this.width = parseInt(e.target.value)
+    }
+
+    setHeight(e) {
+        this.height = parseInt(e.target.value)
+    }
+
+    render() {
+        return (
+            <>
+                <div className="field">
+                    <div className="label">Размер</div>
+                    <div className="field is-grouped sizes">
+                        <div className="control">
+                            <input id="board-height" className="input" onChange={this.setHeight} type="text"
+                                   placeholder="Высота"/>
+                        </div>
+                        <div className="control">
+                            <input id="board-width" className="input" onChange={this.setWidth} type="text"
+                                   placeholder="Ширина"/>
+                        </div>
+                        <div className="control">
+                            <button onClick={this.resize} className="button">Применить</button>
+                        </div>
+                    </div>
+                </div>
+                <div className="field is-grouped">
+                    <div className="control">
+                        {(this.props.started) ?
+                            <button onClick={this.props.stop} className="button is-danger">Стоп</button> :
+                            <button onClick={this.props.start} className="button is-primary">Старт</button>}
+                    </div>
+                    <div className="control">
+                        <button onClick={this.props.reset} className="button is-info">Сброс</button>
+                    </div>
+                </div>
+            </>
+        )
+    }
+}
+
 class Game extends React.Component {
     constructor(props) {
         super(props);
-        this.height = 10;
-        this.width = 10;
+        this.height = this.props.height;
+        this.width = this.props.width;
         this.state = {
             started: false,
-            board: Array.from(Array(this.height), () => new Array(this.width).fill(0))
+            board: new_board(this.height, this.width)
         }
         this.start = this.start.bind(this);
         this.stop = this.stop.bind(this);
@@ -33,7 +125,6 @@ class Game extends React.Component {
         this.update = this.update.bind(this);
         this.onClick = this.onClick.bind(this);
     }
-
 
     start() {
         this.setState({
@@ -50,16 +141,13 @@ class Game extends React.Component {
     reset() {
         this.stop();
         this.setState({
-            board: Array.from(Array(this.height), () => new Array(this.width).fill(0))
+            board: new_board(this.height, this.width)
         })
     }
 
-    resize() {
-        let width = document.getElementById("board-width").value;
-        let height = document.getElementById("board-height").value;
-        this.width = (width === "") ? 10 : parseInt(width);
-        this.height = (height === "") ? 10 : parseInt(height);
-        console.log(height, width);
+    resize(height, width) {
+        this.width = (isNaN(width)) ? this.props.width : Math.abs(width);
+        this.height = (isNaN(height)) ? this.props.height : Math.abs(height);
         this.reset();
     }
 
@@ -73,7 +161,7 @@ class Game extends React.Component {
 
     update() {
         let board = this.state.board;
-        let updated = Array.from(Array(this.height), () => new Array(this.width).fill(0));
+        let updated = new_board(this.height, this.width);
         for (let r = 0; r < this.height; r++) {
             for (let c = 0; c < this.width; c++) {
                 let sum = 0;
@@ -104,57 +192,18 @@ class Game extends React.Component {
     }
 
     render() {
-        let rows = [];
-        for (let r = 0; r < this.height; r++) {
-            let row = [];
-            for (let c = 0; c < this.width; c++) {
-                if (this.state.started)
-                    row.push(<Cell row={r} column={c}
-                                   value={this.state.board[r][c]}/>);
-                else
-                    row.push(<Cell row={r} column={c}
-                                   value={this.state.board[r][c]}
-                                   onClick={this.onClick}/>);
-            }
-            rows.push(<div className="row" key={String(r)}>{row}</div>);
-        }
-
         return (
             <div className="columns">
                 <div className="column is-narrow">
-                    <div className="board">
-                        {rows}
-                    </div>
+                    <Board board={this.state.board} started={this.state.started} onClick={this.onClick}/>
                 </div>
                 <div className="column">
-                    <div className="field">
-                        <div className="label">Размер</div>
-                        <div className="field is-grouped sizes">
-                            <div className="control">
-                                <input id="board-height" className="input" type="text" placeholder="Высота"/>
-                            </div>
-                            <div className="control">
-                                <input id="board-width" className="input" type="text" placeholder="Ширина"/>
-                            </div>
-                            <div className="control">
-                                <button onClick={this.resize} className="button">Применить</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="field is-grouped">
-                        <div className="control">
-                            {(this.state.started) ?
-                                <button onClick={this.stop} className="button is-danger">Стоп</button> :
-                                <button onClick={this.start} className="button is-primary">Старт</button>}
-                        </div>
-                        <div className="control">
-                            <button onClick={this.reset} className="button is-info">Сброс</button>
-                        </div>
-                    </div>
+                    <Control started={this.state.started} stop={this.start} start={this.stop} reset={this.reset}
+                             resize={this.resize}/>
                 </div>
             </div>
         )
     }
 }
 
-ReactDOM.render(<Game height={10} width={10}/>, document.querySelector(".game"));
+ReactDOM.render(<Game height={10} width={10}/>, document.getElementById("game"));
