@@ -1,0 +1,10 @@
+service: life
+runtime: python38
+
+handlers:
+  - url: /
+    static_files: dist/index.html
+    upload: index.html
+
+  - url: /*
+    static_dir: dist
