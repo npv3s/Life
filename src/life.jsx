@@ -198,7 +198,7 @@ class Game extends React.Component {
                     <Board board={this.state.board} started={this.state.started} onClick={this.onClick}/>
                 </div>
                 <div className="column">
-                    <Control started={this.state.started} stop={this.start} start={this.stop} reset={this.reset}
+                    <Control started={this.state.started} stop={this.stop} start={this.start} reset={this.reset}
                              resize={this.resize}/>
                 </div>
             </div>
