@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Создано Microsoft Visio, экспорт SVG icon.svg Страница-1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		width="0.596566in" height="0.596566in" viewBox="0 0 42.9528 42.9527" xml:space="preserve"
+		color-interpolation-filters="sRGB" class="st3">
+	<style type="text/css">
+	<![CDATA[
+		.st1 {fill:#ffdd57;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:1}
+		.st2 {fill:#000000;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:1}
+		.st3 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<g>
+		<title>Страница-1</title>
+		<g id="shape1-1" transform="translate(0.5,-28.8464)">
+			<title>Лист.1</title>
+			<rect x="0" y="29.3464" width="13.6063" height="13.6063" class="st1"/>
+		</g>
+		<g id="shape2-3" transform="translate(14.6732,-28.8464)">
+			<title>Лист.2</title>
+			<rect x="0" y="29.3464" width="13.6063" height="13.6063" class="st1"/>
+		</g>
+		<g id="shape3-5" transform="translate(0.500006,-14.6732)">
+			<title>Лист.3</title>
+			<rect x="0" y="29.3464" width="13.6063" height="13.6063" class="st2"/>
+		</g>
+		<g id="shape4-7" transform="translate(14.6732,-14.6732)">
+			<title>Лист.4</title>
+			<rect x="0" y="29.3464" width="13.6063" height="13.6063" class="st1"/>
+		</g>
+		<g id="shape5-9" transform="translate(0.500006,-0.5)">
+			<title>Лист.5</title>
+			<rect x="0" y="29.3464" width="13.6063" height="13.6063" class="st1"/>
+		</g>
+		<g id="shape6-11" transform="translate(14.6732,-0.5)">
+			<title>Лист.6</title>
+			<rect x="0" y="29.3464" width="13.6063" height="13.6063" class="st2"/>
+		</g>
+		<g id="shape7-13" transform="translate(28.8465,-28.8464)">
+			<title>Лист.7</title>
+			<rect x="0" y="29.3464" width="13.6063" height="13.6063" class="st2"/>
+		</g>
+		<g id="shape8-15" transform="translate(28.8465,-14.6732)">
+			<title>Лист.8</title>
+			<rect x="0" y="29.3464" width="13.6063" height="13.6063" class="st2"/>
+		</g>
+		<g id="shape9-17" transform="translate(28.8465,-0.5)">
+			<title>Лист.9</title>
+			<rect x="0" y="29.3464" width="13.6063" height="13.6063" class="st2"/>
+		</g>
+	</g>
+</svg>
