@@ -1,14 +1,35 @@
+@import "node_modules/bulma/sass/utilities/_all.sass"
+@import "node_modules/bulma/sass/base/_all.sass"
+@import "node_modules/bulma/sass/components/_all.sass"
+@import "node_modules/bulma/sass/elements/_all.sass"
+@import "node_modules/bulma/sass/grid/_all.sass"
+@import "node_modules/bulma/sass/helpers/_all.sass"
+@import "node_modules/bulma/sass/layout/_all.sass"
+@import "node_modules/bulma/sass/form/_all.sass"
+
 .game
-  display: table
-  border-collapse: collapse
+  .board
+    display: flex
+    flex-direction: column
+    width: min(calc(100vh - 7.5rem - 150px), calc(100vw - 3rem))
+    height: min(calc(100vh - 7.5rem - 150px), calc(100vw - 3rem))
+    border-right: solid gray
+    border-bottom: solid gray
+
   .row
-    display: table-row
+    display: flex
     flex-direction: row
+    flex-grow: 1
+    width: 100%
+
   .cell
-    display: table-cell
-    width: 1rem
-    height: 1rem
-    background-color: yellow
-    border: solid gray
+    flex-grow: 1
+    background-color: #ffdd57
+    border-top: solid gray
+    border-left: solid gray
+
   .clicked
     background-color: black
+
+  .sizes input
+    width: 6em
